@@ -1,19 +1,21 @@
 #include <stdio.h>
+#include <stdint.h>
 #include <stdbool.h>
 #include <limits.h>
 #include <SDL2/SDL.h>
-#include "./constants.h"
+#include "constants.h"
+#include "textures.h"
 
 int map[ROWS][COLS] = {
   {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-  {1, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1},
+  {1, 0, 0, 0, 1, 0, 1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 6, 0, 0, 1},
   {1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-  {1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
+  {1, 1, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 1},
   {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1},
-  {1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1},
+  {1, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
   {1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -48,8 +50,9 @@ int is_game_running = false;
 int last_frame_time = 0;
 
 // This will be used for the color and textures
-Uint32* color_buffer = NULL;
-Uint32* wall_texture = NULL;
+uint32_t* color_buffer = NULL;
+uint32_t* wall_texture = NULL;
+uint32_t* textures[TOTAL_TEXTURES];
 
 SDL_Texture* color_buffer_texture;
 
@@ -100,30 +103,39 @@ void setup() {
   // Because each pixel in the screen will be treated separately we need to have
   // an array to store information about each one of them. We're doing this by
   // allocating space in memory, equal to the dimensions of the window in the
-  // form of Uint32 or 4 bytes per pixel.
-  color_buffer = (Uint32*) malloc(sizeof(Uint32) * (Uint32)WINDOW_WIDTH * (Uint32)WINDOW_HEIGHT);
+  // form of uint32_t or 4 bytes per pixel.
+  color_buffer = (uint32_t*) malloc(sizeof(uint32_t) * (uint32_t)WINDOW_WIDTH * (uint32_t)WINDOW_HEIGHT);
 
   // create an SDL_Texture to display the color_buffer
   color_buffer_texture = SDL_CreateTexture(
     renderer, // what is the renderer?
-    SDL_PIXELFORMAT_ARGB8888,     // what is the pixel format? e.g. order of colors, transparency, etc
+    SDL_PIXELFORMAT_RGBA32,     // what is the pixel format? e.g. order of colors, transparency, etc
     SDL_TEXTUREACCESS_STREAMING,  // update pixel frame by frame
     WINDOW_WIDTH,
     WINDOW_HEIGHT
   );
 
   // Similar to the color buffer we have a texture that will be "painted" over the projecttion
-  wall_texture = (Uint32*) malloc(sizeof(Uint32) * (Uint32)TEXTURE_WIDTH * (Uint32)TEXTURE_HEIGHT);
-  for (int x = 0; x < TEXTURE_WIDTH; x++) {
-    for (int y = 0; y < TEXTURE_HEIGHT; y++) {
-      wall_texture[TEXTURE_WIDTH * y + x] = ((x & 7) && (y & 7))
-        ? 0xFF0000FF
-        : 0xFF000000;
-    }
-  }
+  // wall_texture = (uint32_t*) malloc(sizeof(uint32_t) * (uint32_t)TEXTURE_WIDTH * (uint32_t)TEXTURE_HEIGHT);
+  // for (int x = 0; x < TEXTURE_WIDTH; x++) {
+  //   for (int y = 0; y < TEXTURE_HEIGHT; y++) {
+  //     wall_texture[TEXTURE_WIDTH * y + x] = ((x & 8) && (y & 8))
+  //       ? 0xFF0000FF
+  //       : 0xFF000000;
+  //   }
+  // }
 
+  // textures[0] = (uint32_t*) REDBRICK_TEXTURE;
+  // textures[1] = (uint32_t*) PURPLESTONE_TEXTURE;
+  // textures[2] = (uint32_t*) MOSSYSTONE_TEXTURE;
+  // textures[3] = (uint32_t*) GRAYSTONE_TEXTURE;
+  // textures[4] = (uint32_t*) COLORSTONE_TEXTURE;
+  // textures[5] = (uint32_t*) BLUESTONE_TEXTURE;
+  // textures[6] = (uint32_t*) WOOD_TEXTURE;
+  // textures[7] = (uint32_t*) EAGLE_TEXTURE;
 
-  // TODO: Load texture from PNG file
+  // Decode PNG files and loads the textures array
+  load_wall_textures();
 }
 
 
@@ -191,7 +203,8 @@ void update() {
 
 void generate_3D_projection(void) {
   for (int i = 0; i < NUM_RAYS; i++) {
-    float projection_plane_distance = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
+
+    // float projection_plane_distance = (WINDOW_WIDTH / 2) / tan(FOV_ANGLE / 2);
 
     // Get ray distance to wall, adjusting for "bowl" or "fish-eye" effect
     float ray_length = CORRECT_FISH_EYE_EFFECT
@@ -199,7 +212,7 @@ void generate_3D_projection(void) {
       : rays[i].length;
 
     // Find the height of the projection per strip
-    int projection_wall_height = (TILE_SIZE / ray_length) * projection_plane_distance;
+    int projection_wall_height = (TILE_SIZE / ray_length) * DISTANCE_PROJ_PLANE;
 
     // Find height where the wall projections starts
     int top_wall_pixel = (WINDOW_HEIGHT / 2) - (projection_wall_height / 2);
@@ -222,6 +235,9 @@ void generate_3D_projection(void) {
       texture_offset_x = (int)rays[i].target_x % TILE_SIZE;
     }
 
+    // What material the wall hit by current ray has:
+    int texture_index = rays[i].target_wall_material - 1;
+
     // Loop over each pixel from the projection vertically
     for (int y = 0; y < WINDOW_HEIGHT; y++) {
 
@@ -239,7 +255,8 @@ void generate_3D_projection(void) {
       if (y >= top_wall_pixel && y <= bot_wall_pixel) {
 
         // Set the color of each pixel based on the wall_texture
-        Uint32 texel_color = wall_texture[TEXTURE_WIDTH * texture_offset_y + texture_offset_x];
+        // uint32_t texel_color = wall_texture[TEXTURE_WIDTH * texture_offset_y + texture_offset_x];
+        uint32_t texel_color = wall_textures[texture_index].texture_buffer[TEXTURE_WIDTH * texture_offset_y + texture_offset_x];
 
         color_buffer[WINDOW_WIDTH * y + i] = texel_color;
         // color_buffer[WINDOW_WIDTH * y + i] = rays[i].hits_vertically
@@ -256,7 +273,7 @@ void generate_3D_projection(void) {
 }
 
 
-void clearColorBuffer(Uint32 color) {
+void clearColorBuffer(uint32_t color) {
   for (int x = 0; x < WINDOW_WIDTH; x++) {
     for (int y = 0; y < WINDOW_HEIGHT; y++) {
       color_buffer[WINDOW_WIDTH * y + x] = color;
@@ -270,7 +287,7 @@ void renderColorBuffer() {
     color_buffer_texture,
     NULL,
     color_buffer,
-    (int)((Uint32) WINDOW_WIDTH * sizeof(Uint32))
+    (int)((uint32_t) WINDOW_WIDTH * sizeof(uint32_t))
   );
   SDL_RenderCopy(renderer, color_buffer_texture, NULL, NULL);
 }
@@ -456,18 +473,28 @@ void cast_ray(float angle, int idx) {
   }
 
   rays[idx].angle = angle;
+  rays[idx].target_wall_material = get_map_tile_at(
+    rays[idx].target_x,
+    rays[idx].target_y
+  );
 }
 
+
+// NOTE: This function is updated from using the same angle per ray, which creates
+// a slight distorted representation of the walls. The updated version (uncommented)
+// assumes equal distance between rays hitting the wall, and changes the angle accordingly.
 void create_scene(){
-  // start first ray subtracting half of the FOV
-  float ray_angle = player.facing - (FOV_ANGLE / 2);
+  // start first ray subtracting half of the FOV (see update note)
+  // float ray_angle = player.facing - (FOV_ANGLE / 2);
 
   for (int i = 0; i < NUM_RAYS; i++) {
+    float ray_angle = player.facing + atan((i - NUM_RAYS / 2) / DISTANCE_PROJ_PLANE);
+
     // Create rays from player's position
     cast_ray(ray_angle, i);
 
     // increase angle based on perception and casted rays
-    ray_angle += FOV_ANGLE / NUM_RAYS;
+    // ray_angle += FOV_ANGLE / NUM_RAYS; (see updated note)
   }
 }
 
@@ -506,21 +533,21 @@ void render_player() {
   // Draw player and a line to signal player orientation
   // NOTE: cos and sin may not be available to the compiler. Add "-lm" after
   // "-lSDL2" to link to the math module.
-  SDL_RenderFillRect(renderer, &player_rect);
-  SDL_RenderDrawLine(
-    renderer,
-    MINIMAP_SCALE_FACTOR * player.x,
-    MINIMAP_SCALE_FACTOR * player.y,
-    MINIMAP_SCALE_FACTOR * player.x + cos(player.facing) * 40,
-    MINIMAP_SCALE_FACTOR * player.y + sin(player.facing) * 40
-  );
+  // SDL_RenderFillRect(renderer, &player_rect);
+  // SDL_RenderDrawLine(
+  //   renderer,
+  //   MINIMAP_SCALE_FACTOR * player.x,
+  //   MINIMAP_SCALE_FACTOR * player.y,
+  //   MINIMAP_SCALE_FACTOR * player.x + cos(player.facing) * 40,
+  //   MINIMAP_SCALE_FACTOR * player.y + sin(player.facing) * 40
+  // );
 }
 
 
 void destroy_window(void) {
   // Release memory allocated by the program
   free(color_buffer);
-  free(wall_texture);
+  free_wall_textures();
   SDL_DestroyTexture(color_buffer_texture);
 
   // Cleaning up function when quiting the program, the order matters

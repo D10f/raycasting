@@ -1,5 +1,5 @@
 build:
-	gcc -std=c99 ./src/main.c -lSDL2 -lm -o raycasting;
+	gcc -std=c99 ./src/*.c -lSDL2 -lm -o raycasting;
 
 run:
 	./raycasting;
