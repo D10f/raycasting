@@ -1,4 +1,4 @@
-#include "player.h"
+#include "../include/player.h"
 
 player_t player = {
   .x = WINDOW_WIDTH / 2,

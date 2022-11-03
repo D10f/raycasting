@@ -4,12 +4,12 @@
 #include <limits.h>
 #include <SDL2/SDL.h>
 
-#include "defs.h"
-#include "textures.h"
-#include "graphics.h"
-#include "map.h"
-#include "ray.h"
-#include "player.h"
+#include "../include/defs.h"
+#include "../include/textures.h"
+#include "../include/graphics.h"
+#include "../include/map.h"
+#include "../include/ray.h"
+#include "../include/player.h"
 
 bool is_game_running = false;
 int last_frame_time = 0;

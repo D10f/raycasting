@@ -1,4 +1,4 @@
-#include "map.h"
+#include "../include/map.h"
 
 static const int map[ROWS][COLS] = {
   {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ,1, 1, 1, 1, 1, 1, 1},

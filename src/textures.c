@@ -1,7 +1,7 @@
+#include "../include/textures.h"
 #include <stdio.h>
-#include "textures.h"
 
-static const char* texture_filenames[TOTAL_TEXTURES] = {
+static const char *texture_filenames[TOTAL_TEXTURES] = {
   "./images/redbrick.png",
   "./images/purplestone.png",
   "./images/mossystone.png",
@@ -13,10 +13,12 @@ static const char* texture_filenames[TOTAL_TEXTURES] = {
   "./images/pikuma.png"
 };
 
+texture_t wall_textures[TOTAL_TEXTURES];
+
 void load_wall_textures() {
   for (int i = 0; i < TOTAL_TEXTURES; i++) {
 
-    upng_t* upng;
+    upng_t *upng;
     upng = upng_new_from_file(texture_filenames[i]);
 
     if (upng != NULL) {
@@ -25,7 +27,7 @@ void load_wall_textures() {
         wall_textures[i].upng_texture = upng;
         wall_textures[i].width = upng_get_width(upng);
         wall_textures[i].height = upng_get_height(upng);
-        wall_textures[i].texture_buffer = (uint32_t*)upng_get_buffer(upng);
+        wall_textures[i].texture_buffer = (uint32_t *)upng_get_buffer(upng);
       }
     }
   }

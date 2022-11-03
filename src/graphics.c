@@ -1,10 +1,10 @@
-#include "graphics.h"
+#include "../include/graphics.h"
 
 // These are not global variables anymore (previously declared as such in main.c)
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
+static SDL_Texture* color_buffer_texture = NULL;
 static uint32_t* color_buffer = NULL;
-static SDL_Texture* color_buffer_texture;
 
 bool initialize_window(void) {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
