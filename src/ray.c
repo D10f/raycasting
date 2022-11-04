@@ -1,4 +1,5 @@
 #include "../include/ray.h"
+#include <float.h>
 
 ray_t rays[NUM_RAYS];
 
@@ -133,10 +134,11 @@ void render_rays() {
   }
 }
 
-// NOTE: This function is updated from using the same angle per ray, which creates
-// a slight distorted representation of the walls. The updated version (uncommented)
-// assumes equal distance between rays hitting the wall, and changes the angle accordingly.
-void create_scene(){
+// NOTE: This function is updated from using the same angle per ray, which
+// creates a slight distorted representation of the walls. The updated version
+// (uncommented) assumes equal distance between rays hitting the wall, and
+// changes the angle accordingly.
+void create_scene() {
   // start first ray subtracting half of the FOV (see update note)
   // float ray_angle = player.facing - (FOV_ANGLE / 2);
 
