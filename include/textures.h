@@ -2,7 +2,7 @@
 #define TEXTURES_H
 
 #include "defs.h"
-#include "upng.h"
+#include "../lib/upng.h"
 #include <stdint.h>
 
 /**
