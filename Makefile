@@ -1,8 +1,8 @@
 build:
-	gcc -std=c99 ./src/*.c ./lib/*.c -lSDL2 -lm -o raycasting;
+	emcc ./src/*.c ./lib/*.c -s USE_SDL=2 -lm --preload-file ./images/redbrick.png -o raycasting.html;
 
 run:
 	./raycasting;
 
 clean:
-	rm raycasting;
+	rm raycasting *.js *.wasm *.html;

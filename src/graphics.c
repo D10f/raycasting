@@ -7,7 +7,7 @@ static SDL_Texture* color_buffer_texture = NULL;
 static uint32_t* color_buffer = NULL;
 
 bool initialize_window(void) {
-  if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     fprintf(stderr, "Error initizializing SDL.\n");
     return false;
   }

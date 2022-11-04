@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <limits.h>
 #include <SDL2/SDL.h>
+#include <emscripten.h>
 
 #include "../include/defs.h"
 #include "../include/textures.h"
@@ -18,29 +19,30 @@ uint32_t* wall_texture = NULL;
 
 void process_input(void);
 void setup(void);
+void run_main_loop(void);
 void render(void);
 void update(void);
 void release_resources(void);
 
 int main() {
-  is_game_running = initialize_window();
-
   setup();
-
-  while (is_game_running) {
-    process_input();
-    update();
-    render();
-  }
-
+  emscripten_set_main_loop(run_main_loop, FPS, 1);
   release_resources();
+
   return 0;
 }
 
-
 void setup() {
+  // Initializes the SDL window, renderer and texture buffer, etc 
+  initialize_window();
   // Decode PNG files and loads the textures array
   load_wall_textures();
+}
+
+void run_main_loop() {
+  process_input();
+  update();
+  render();
 }
 
 void process_input(void) {
