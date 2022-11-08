@@ -18,15 +18,17 @@ bool initialize_window(void) {
   SDL_DisplayMode display_mode;
   SDL_GetCurrentDisplayMode(0, &display_mode);
 
-  int full_screen_width = display_mode.w;
-  int full_screen_height = display_mode.h;
+  // int full_screen_width = display_mode.w;
+  // int full_screen_height = display_mode.h;
 
   window = SDL_CreateWindow(
     "Raycasting Rendering in C with SDL",
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED,
-    full_screen_width,
-    full_screen_height,
+    // full_screen_width,
+    // full_screen_height,
+    WINDOW_WIDTH,
+    WINDOW_HEIGHT,
     SDL_WINDOW_BORDERLESS
   );
 
