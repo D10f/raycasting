@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>WASM + SDL test</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body,
+    canvas {
+      padding: 0;
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Hello World</h1>
+  <p>Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.</p>
+  <canvas id="canvas" width="535" height="240"></canvas>
+  <script src="raycasting.js"></script>
+  <script>
+    Module.canvas = document.getElementById('canvas');
+  </script>
+</body>
+
+</html>
