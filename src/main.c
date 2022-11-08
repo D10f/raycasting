@@ -26,7 +26,7 @@ void release_resources(void);
 
 int main() {
   setup();
-  emscripten_set_main_loop(run_main_loop, FPS, 1);
+  emscripten_set_main_loop(run_main_loop, 0, 1);
   release_resources();
 
   return 0;
