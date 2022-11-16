@@ -1,4 +1,9 @@
-raycasting
+public/
 *.js
 *.wasm
 *.data
+*.html
+
+prog
+a.out
+raycasting
