@@ -14,7 +14,7 @@
 bool is_game_running = false;
 int last_frame_time = 0;
 
-uint32_t* wall_texture = NULL;
+color_t* wall_texture = NULL;
 
 void process_input(void);
 void setup(void);
@@ -158,7 +158,7 @@ void render_wall_projection(void) {
       if (y >= top_wall_pixel && y <= bot_wall_pixel) {
 
         // Set the color of each pixel based on the wall_texture
-        uint32_t texel_color = wall_textures[texture_index].texture_buffer[TEXTURE_WIDTH * texture_offset_y + texture_offset_x];
+        color_t texel_color = wall_textures[texture_index].texture_buffer[TEXTURE_WIDTH * texture_offset_y + texture_offset_x];
         draw_pixel(x,y, texel_color);
       }
 

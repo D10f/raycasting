@@ -4,7 +4,7 @@
 static SDL_Window* window = NULL;
 static SDL_Renderer* renderer = NULL;
 static SDL_Texture* color_buffer_texture = NULL;
-static uint32_t* color_buffer = NULL;
+static color_t* color_buffer = NULL;
 
 bool initialize_window(void) {
   if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -49,8 +49,8 @@ bool initialize_window(void) {
   // Because each pixel in the screen will be treated separately we need to have
   // an array to store information about each one of them. We're doing this by
   // allocating space in memory, equal to the dimensions of the window in the
-  // form of uint32_t or 4 bytes per pixel.
-  color_buffer = (uint32_t*) malloc(sizeof(uint32_t) * (uint32_t)WINDOW_WIDTH * (uint32_t)WINDOW_HEIGHT);
+  // form of color_t or 4 bytes per pixel.
+  color_buffer = (color_t*) malloc(sizeof(color_t) * (color_t)WINDOW_WIDTH * (color_t)WINDOW_HEIGHT);
 
   // create an SDL_Texture to display the color_buffer
   color_buffer_texture = SDL_CreateTexture(
@@ -75,7 +75,7 @@ void destroy_window(void) {
   SDL_Quit();
 }
 
-void clear_color_buffer(uint32_t color) {
+void clear_color_buffer(color_t color) {
   for (int i = 0; i < WINDOW_WIDTH * WINDOW_HEIGHT; i++) {
     color_buffer[i] = color;
   }
@@ -86,17 +86,17 @@ void render_color_buffer() {
     color_buffer_texture,
     NULL,
     color_buffer,
-    (int)((uint32_t) WINDOW_WIDTH * sizeof(uint32_t))
+    (int)((color_t) WINDOW_WIDTH * sizeof(color_t))
   );
   SDL_RenderCopy(renderer, color_buffer_texture, NULL, NULL);
   SDL_RenderPresent(renderer);
 }
 
-void draw_pixel(int x, int y, uint32_t color) {
+void draw_pixel(int x, int y, color_t color) {
   color_buffer[WINDOW_WIDTH * y + x] = color;
 }
 
-void draw_rect(int x, int y, int width, int height, uint32_t color) {
+void draw_rect(int x, int y, int width, int height, color_t color) {
   for (int i = x; i <= x + width; i++) {
     for (int j = y; j <= y + height; j++) {
       draw_pixel(i, j, color);
@@ -105,7 +105,7 @@ void draw_rect(int x, int y, int width, int height, uint32_t color) {
 }
 
 // Draws a line using the DDA (Digital Differential Analyzer) algorithm
-void draw_line(int x1, int y1, int x2, int y2, uint32_t color) {
+void draw_line(int x1, int y1, int x2, int y2, color_t color) {
 
   // Find the sides of the "triangle"
   int delta_x = (x2 - x1);

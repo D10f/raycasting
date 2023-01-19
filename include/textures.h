@@ -15,7 +15,7 @@
 typedef struct texture_t {
   int width;                ///< Width of the texture.
   int height;               ///< Height of the texture.
-  uint32_t *texture_buffer; ///< Buffer data of the texture.
+  color_t *texture_buffer;  ///< Buffer data of the texture.
   upng_t *upng_texture;     ///< Pointer to the texture data as loaded by upng.
 } texture_t;
 

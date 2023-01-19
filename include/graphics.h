@@ -29,7 +29,7 @@ void destroy_window(void);
  * @param[in] color color used to fill each pixel in hexadecimal notation.
  *
  */
-void clear_color_buffer(uint32_t color);
+void clear_color_buffer(color_t color);
 
 
 /**
@@ -48,7 +48,7 @@ void render_color_buffer(void);
  * @param[in] color The color to draw the pixel with.
  *
  */
-void draw_pixel(int x, int y, uint32_t color);
+void draw_pixel(int x, int y, color_t color);
 
 
 /**
@@ -60,7 +60,7 @@ void draw_pixel(int x, int y, uint32_t color);
  * @param[in] color The fill color of the rectangle.
  *
  */
-void draw_rect(int x, int y, int width, int height, uint32_t color);
+void draw_rect(int x, int y, int width, int height, color_t color);
 
 
 /**
@@ -72,6 +72,6 @@ void draw_rect(int x, int y, int width, int height, uint32_t color);
  * @param[in] y2 The y coordinate of the ending point.
  * @param[in] color The fill color of the line.
  */
-void draw_line(int x1, int y1, int x2, int y2, uint32_t color);
+void draw_line(int x1, int y1, int x2, int y2, color_t color);
 
 #endif
