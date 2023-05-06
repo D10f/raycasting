@@ -53,31 +53,31 @@ void process_input(void) {
     case SDL_QUIT:
       is_game_running = false;
       break;
-    case SDL_KEYDOWN:
-      if (event.key.keysym.sym == SDLK_ESCAPE) {
-        is_game_running = false;
-      }
-      if (event.key.keysym.sym == SDLK_LEFT) {
-        player.turn_direction = -1;
-      }
-      if (event.key.keysym.sym == SDLK_RIGHT) {
-        player.turn_direction = 1;
-      }
-      if (event.key.keysym.sym == SDLK_UP) {
-        player.walk_direction = 1;
-      }
-      if (event.key.keysym.sym == SDLK_DOWN) {
-        player.walk_direction = -1;
-      }
-      break;
-    case SDL_KEYUP:
-      if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_RIGHT) {
-        player.turn_direction = 0;
-      }
-      if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_DOWN) {
-        player.walk_direction = 0;
-      }
-      break;
+    /* case SDL_KEYDOWN: */
+    /*   if (event.key.keysym.sym == SDLK_ESCAPE) { */
+    /*     is_game_running = false; */
+    /*   } */
+    /*   if (event.key.keysym.sym == SDLK_LEFT) { */
+    /*     player.turn_direction = -1; */
+    /*   } */
+    /*   if (event.key.keysym.sym == SDLK_RIGHT) { */
+    /*     player.turn_direction = 1; */
+    /*   } */
+    /*   if (event.key.keysym.sym == SDLK_UP) { */
+    /*     player.walk_direction = 1; */
+    /*   } */
+    /*   if (event.key.keysym.sym == SDLK_DOWN) { */
+    /*     player.walk_direction = -1; */
+    /*   } */
+    /*   break; */
+    /* case SDL_KEYUP: */
+    /*   if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_RIGHT) { */
+    /*     player.turn_direction = 0; */
+    /*   } */
+    /*   if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_DOWN) { */
+    /*     player.walk_direction = 0; */
+    /*   } */
+    /*   break; */
   }
 }
 
