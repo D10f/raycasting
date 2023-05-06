@@ -9,7 +9,9 @@ player_t player = {
   .walk_direction = 0,
   .facing = PI / 2,
   .movement_speed = 100,
-  .rotation_speed = 90 * (PI / 180)  // 45deg, converted to radians
+  .rotation_speed = 90 * (PI / 180),  // 45deg, converted to radians
+  .prev_tile = { 0, 0 },
+  .next_tile = { 0, 0 }
 };
 
 void render_player() {

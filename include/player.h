@@ -21,6 +21,8 @@ typedef struct player_t {
   float rotation_speed; ///< 1 for rotating, 0 when not.
   int turn_direction;   ///< -1 for left, +1 for right.
   int walk_direction;   ///< -1 for back, +1 for front.
+  int *prev_tile[2];    ///< tuple with x,y coordinates of past player position
+  int *next_tile[2];    ///< tuple with x,y coordinates of next player position
 } player_t;
 
 // declare it as a global variable (to be defined in an external file)
