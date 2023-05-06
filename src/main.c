@@ -53,10 +53,11 @@ void process_input(void) {
     case SDL_QUIT:
       is_game_running = false;
       break;
-    /* case SDL_KEYDOWN: */
-    /*   if (event.key.keysym.sym == SDLK_ESCAPE) { */
-    /*     is_game_running = false; */
-    /*   } */
+    case SDL_KEYDOWN:
+      if (event.key.keysym.sym == SDLK_ESCAPE) {
+        is_game_running = false;
+      }
+      break;
     /*   if (event.key.keysym.sym == SDLK_LEFT) { */
     /*     player.turn_direction = -1; */
     /*   } */

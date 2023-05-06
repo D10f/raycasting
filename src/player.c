@@ -1,8 +1,10 @@
 #include "../include/player.h"
 
 player_t player = {
-  .x = WINDOW_WIDTH / 2,
-  .y = WINDOW_HEIGHT / 2,
+  /* .x = WINDOW_WIDTH / 2, */
+  /* .y = WINDOW_HEIGHT / 2, */
+  .x = TILE_SIZE * 2 - (float)TILE_SIZE / 2,
+  .y = TILE_SIZE * 2 - (float)TILE_SIZE / 2,
   .width = 10,
   .height = 10,
   .turn_direction = 0,
