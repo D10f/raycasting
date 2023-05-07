@@ -8,6 +8,14 @@
 #define COLS 20 ///< Number of columns used in the map.
 #define ROWS 13 ///< Number of rows used in the map.
 
+/**
+ * Selects a random tile neighboring the provided coordinates
+ * @param[in] x The x coordinate belonging to a tile in the map.
+ * @param[in] y The y coordinate belonging to a tile in the map.
+ * @param[in] nextTile Tuple to update with the new coordinates.
+ * @param[in] prevTile Tuple with previous coordinates to avoid backtracking.
+ */
+void get_random_neighbor(float x, float y, float *next_tile, const float *prev_tile);
 
 /**
  * Returns the tile of the map at the given coordinates.

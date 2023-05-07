@@ -21,8 +21,8 @@ typedef struct player_t {
   float rotation_speed; ///< 1 for rotating, 0 when not.
   int turn_direction;   ///< -1 for left, +1 for right.
   int walk_direction;   ///< -1 for back, +1 for front.
-  int *prev_tile[2];    ///< tuple with x,y coordinates of past player position
-  int *next_tile[2];    ///< tuple with x,y coordinates of next player position
+  float prev_tile[2];    ///< tuple with x,y coordinates of past player position
+  float next_tile[2];    ///< tuple with x,y coordinates of next player position
 } player_t;
 
 // declare it as a global variable (to be defined in an external file)
@@ -39,9 +39,15 @@ void render_player(void);
 /**
  * Updates the facing direction and position of the player.
  * Takes into account the deltatime calculated using the SDL_Delay function.
- * @param[in] deltatime 
+ * @param[in] deltatime
  *
  */
 void move_player(float deltatime);
+
+
+/**
+ * Calculates the angle between two points on a plane
+ */
+float angle_between_points(float x1, float y1, float x2, float y2);
 
 #endif
