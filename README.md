@@ -2,6 +2,8 @@
 
 Classic Windows 95 maze screensaver, made in C. Walls are projected following the Wolfenstein 3D raycasting algorithm.
 
+![animated gif of the screensaver](public/preview.gif)
+
 TODO:
 
  - [ ] Generate different maze layouts procedurally.
