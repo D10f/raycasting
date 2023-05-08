@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <time.h>
 #include <limits.h>
 #include <SDL2/SDL.h>
 
@@ -23,6 +24,9 @@ void update(void);
 void release_resources(void);
 
 int main() {
+
+  srand(time(NULL));
+
   is_game_running = initialize_window();
 
   setup();
@@ -56,29 +60,29 @@ void process_input(void) {
     case SDL_KEYDOWN:
       if (event.key.keysym.sym == SDLK_ESCAPE) {
         is_game_running = false;
+        break;
       }
-      break;
-    /*   if (event.key.keysym.sym == SDLK_LEFT) { */
-    /*     player.turn_direction = -1; */
-    /*   } */
-    /*   if (event.key.keysym.sym == SDLK_RIGHT) { */
-    /*     player.turn_direction = 1; */
-    /*   } */
-    /*   if (event.key.keysym.sym == SDLK_UP) { */
-    /*     player.walk_direction = 1; */
-    /*   } */
-    /*   if (event.key.keysym.sym == SDLK_DOWN) { */
-    /*     player.walk_direction = -1; */
-    /*   } */
-    /*   break; */
+      /* if (event.key.keysym.sym == SDLK_LEFT) { */
+        /* player.turn_direction = -1; */
+      /* } */
+      /* if (event.key.keysym.sym == SDLK_RIGHT) { */
+        /* player.turn_direction = 1; */
+      /* } */
+      /* if (event.key.keysym.sym == SDLK_UP) { */
+        /* player.walk_direction = 1; */
+      /* } */
+      /* if (event.key.keysym.sym == SDLK_DOWN) { */
+        /* player.walk_direction = -1; */
+      /* } */
+      /* break; */
     /* case SDL_KEYUP: */
-    /*   if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_RIGHT) { */
-    /*     player.turn_direction = 0; */
-    /*   } */
-    /*   if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_DOWN) { */
-    /*     player.walk_direction = 0; */
-    /*   } */
-    /*   break; */
+      /* if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_RIGHT) { */
+        /* player.turn_direction = 0; */
+      /* } */
+      /* if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_DOWN) { */
+        /* player.walk_direction = 0; */
+      /* } */
+      /* break; */
   }
 }
 
@@ -176,8 +180,8 @@ void render(void) {
   render_wall_projection();
 
   render_map();
-  render_player();
   render_rays();
+  render_player();
 
   render_color_buffer();
 }

@@ -17,6 +17,7 @@ typedef struct player_t {
   float width;          ///< The width of the rectangle drawn in the map.
   float height;         ///< The height of the rectangle drawn in the map.
   float facing;         ///< Angle of the direction the player is facing.
+  float prev_facing;         ///< Angle of the direction the player is facing.
   float movement_speed; ///< 1 for moving, 0 when not.
   float rotation_speed; ///< 1 for rotating, 0 when not.
   int turn_direction;   ///< -1 for left, +1 for right.
