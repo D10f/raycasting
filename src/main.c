@@ -179,9 +179,9 @@ void render(void) {
   clear_color_buffer(0x00000000);
   render_wall_projection();
 
-  render_map();
-  render_rays();
-  render_player();
+  /* render_map(); */
+  /* render_rays(); */
+  /* render_player(); */
 
   render_color_buffer();
 }
