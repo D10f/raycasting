@@ -82,13 +82,13 @@ void move_player(float delta_time) {
   player.x = next_pos_x;
   player.y = next_pos_y;
 
-  if (distance_between_points(player.x, player.y, player.next_tile[0], player.next_tile[1]) > 10) return;
+  if (distance_between_points(player.x, player.y, player.next_tile[0], player.next_tile[1]) > 3.2) return;
 
   get_random_neighbor(player.x, player.y, player.next_tile, player.prev_tile);
 
   // Update player's position once more to account for the 10px radius to detect target tile
-  player.x = player.x + cos(player.facing) * step;
-  player.y = player.y + sin(player.facing) * step;
+  /* player.x = player.x + cos(player.facing) * step; */
+  /* player.y = player.y + sin(player.facing) * step; */
 
   angle = angle_between_points(player.x, player.y, player.next_tile[0], player.next_tile[1]);
 
