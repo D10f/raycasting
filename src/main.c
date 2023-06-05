@@ -13,6 +13,7 @@
 #include "../include/player.h"
 
 bool is_game_running = false;
+bool is_game_paused = false;
 int last_frame_time = 0;
 
 color_t* wall_texture = NULL;
@@ -47,6 +48,10 @@ void setup() {
   load_wall_textures();
 }
 
+void toggle_play() {
+  is_game_paused = !is_game_paused;
+}
+
 void process_input(void) {
   // Create an event object that listens for user input
   SDL_Event event;
@@ -60,6 +65,10 @@ void process_input(void) {
     case SDL_KEYDOWN:
       if (event.key.keysym.sym == SDLK_ESCAPE) {
         is_game_running = false;
+        break;
+      }
+      if (event.key.keysym.sym == SDLK_p) {
+        toggle_play();
         break;
       }
       /* if (event.key.keysym.sym == SDLK_LEFT) { */
@@ -100,6 +109,8 @@ void update() {
   float delta_time = (SDL_GetTicks() - last_frame_time) / 1000.0f;
 
   last_frame_time = SDL_GetTicks();
+
+  if (is_game_paused) return;
 
   // update player's orientation and position
   move_player(delta_time);
