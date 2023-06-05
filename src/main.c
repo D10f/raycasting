@@ -21,7 +21,7 @@ color_t* wall_texture = NULL;
 void process_input(void);
 void setup(void);
 void render(void);
-void update(void);
+bool update(void);
 void release_resources(void);
 
 int main() {
@@ -34,8 +34,9 @@ int main() {
 
   while (is_game_running) {
     process_input();
-    update();
-    render();
+    if (update()) {
+      render();
+    }
   }
 
   release_resources();
@@ -95,7 +96,7 @@ void process_input(void) {
   }
 }
 
-void update() {
+bool update() {
 
   // Calculate if ellapsed time, in ms, is in schedule with target frame speed
   int time_to_wait = FRAME_TARGET_TIME - (SDL_GetTicks() - last_frame_time);
@@ -110,13 +111,15 @@ void update() {
 
   last_frame_time = SDL_GetTicks();
 
-  if (is_game_paused) return;
+  if (is_game_paused) return false;
 
   // update player's orientation and position
   move_player(delta_time);
 
   // cast rays from player's position
   create_scene();
+
+  return true;
 }
 
 
