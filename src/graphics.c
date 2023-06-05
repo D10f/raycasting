@@ -7,7 +7,7 @@ static SDL_Texture* color_buffer_texture = NULL;
 static color_t* color_buffer = NULL;
 
 bool initialize_window(void) {
-  if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+  if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     fprintf(stderr, "Error initizializing SDL.\n");
     return false;
   }
@@ -25,8 +25,10 @@ bool initialize_window(void) {
     "Raycasting Rendering in C with SDL",
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED,
-    full_screen_width,
-    full_screen_height,
+    /* full_screen_width, */
+    /* full_screen_height, */
+    WINDOW_WIDTH,
+    WINDOW_HEIGHT,
     SDL_WINDOW_BORDERLESS
   );
 

@@ -12,6 +12,10 @@
 #include "../include/ray.h"
 #include "../include/player.h"
 
+#if __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 bool is_game_running = false;
 bool is_game_paused = false;
 int last_frame_time = 0;
@@ -22,6 +26,7 @@ void process_input(void);
 void setup(void);
 void render(void);
 bool update(void);
+void main_loop(void);
 void release_resources(void);
 
 int main() {
@@ -32,15 +37,21 @@ int main() {
 
   setup();
 
-  while (is_game_running) {
-    process_input();
-    if (update()) {
-      render();
-    }
-  }
+  #if __EMSCRIPTEN__
+    emscripten_set_main_loop(main_loop, FPS, 1);
+  #else
+    while(is_game_running) main_loop();
+  #endif
 
   release_resources();
   return 0;
+}
+
+void main_loop() {
+  process_input();
+  if (update()) {
+    render();
+  }
 }
 
 
@@ -54,6 +65,17 @@ void toggle_play() {
 }
 
 void process_input(void) {
+
+  // Remove event handling as to not interfere with browser events
+  #if __EMSCRIPTEN__
+    SDL_EventState(SDL_TEXTINPUT, SDL_DISABLE);
+    SDL_EventState(SDL_KEYDOWN, SDL_DISABLE);
+    SDL_EventState(SDL_KEYUP, SDL_DISABLE);
+    SDL_EventState(SDL_MOUSEMOTION, SDL_DISABLE);
+    SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_DISABLE);
+    SDL_EventState(SDL_MOUSEBUTTONUP, SDL_DISABLE);
+  #endif
+
   // Create an event object that listens for user input
   SDL_Event event;
   SDL_PollEvent(&event);
