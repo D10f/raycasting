@@ -1,1 +1,5 @@
 raycasting
+*.html
+*.js
+*.wasm
+*.data
