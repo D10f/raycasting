@@ -8,7 +8,7 @@ wasm:
 		-s ENVIRONMENT=web \
 		-s MODULARIZE=1 \
 		-s EXPORT_ES6=1 \
-		-s EXPORTED_FUNCTIONS="['_main','_toggle_play']" \
+		-s EXPORTED_FUNCTIONS="['_main','_reset_frame_time']" \
 		-Os \
 		--preload-file ./images \
 		-o public/raycasting.js

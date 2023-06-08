@@ -28,6 +28,8 @@ void render(void);
 bool update(void);
 void main_loop(void);
 void release_resources(void);
+void exit_loop(void);
+void reset_frame_time(void);
 
 int main() {
 
@@ -64,6 +66,17 @@ void toggle_play() {
   is_game_paused = !is_game_paused;
 }
 
+void exit_loop() {
+  #if __EMSCRIPTEN__
+    emscripten_cancel_main_loop();
+  #endif
+  is_game_running = false;
+}
+
+void reset_frame_time() {
+  last_frame_time = SDL_GetTicks();
+}
+
 void process_input(void) {
 
   // Remove event handling as to not interfere with browser events
@@ -74,6 +87,7 @@ void process_input(void) {
     SDL_EventState(SDL_MOUSEMOTION, SDL_DISABLE);
     SDL_EventState(SDL_MOUSEBUTTONDOWN, SDL_DISABLE);
     SDL_EventState(SDL_MOUSEBUTTONUP, SDL_DISABLE);
+    return;
   #endif
 
   // Create an event object that listens for user input
@@ -83,7 +97,7 @@ void process_input(void) {
   // Exit game when user clicks on the window's X or presses the escape key
   switch (event.type) {
     case SDL_QUIT:
-      is_game_running = false;
+      exit_loop();
       break;
     case SDL_KEYDOWN:
       if (event.key.keysym.sym == SDLK_ESCAPE) {
