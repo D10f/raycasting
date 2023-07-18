@@ -6,6 +6,7 @@ Classic Windows 95 maze screensaver, made in C. Walls are projected following th
 
 TODO:
 
+ - [X] Add WebAssembly as compilation target.
  - [ ] Generate different maze layouts procedurally.
  - [ ] Port algorithm to use vectors for increased performance.
  - [ ] Include more textures.
